@@ -8,9 +8,9 @@ def insert_im_s(im_id, total, good, bad):
         im_s = "error"
     return im_s
 
-def insert_l_s(l_id, cr_lvl, is_cr):
+def insert_l_s(l_id, cr_lvl, is_cr, level):
     try:
-        tmp = f"UPDATE level_sensor SET criticalLevel = {cr_lvl}, isCritical = {is_cr} WHERE levelSensorId = {l_id};"
+        tmp = f"UPDATE level_sensor SET criticalLevel = {cr_lvl}, isCritical = {is_cr}, level = {level} WHERE levelSensorId = {l_id};"
         l_s = execute_read_query(connection, tmp)
     except:
         l_s = "error"
