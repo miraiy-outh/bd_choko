@@ -45,8 +45,8 @@ def im_s_iter():
 
 def obj_iter(tmp, num):
     m_id = randint(1, 4)
-    mdl_x = execute_read_query(connection, f"SELECT coordXModel FROM model WHERE modelId = {num};")[0][0]
-    mdl_y = execute_read_query(connection, f"SELECT coordXModel FROM model WHERE modelId = {num};")[0][0]
+    mdl_x = execute_read_query(connection, f"SELECT coordXModel FROM model WHERE modelId = {m_id};")[0][0]
+    mdl_y = execute_read_query(connection, f"SELECT coordYModel FROM model WHERE modelId = {m_id};")[0][0]
     if tmp == 0:
         x = randint(1, mdl_x - 1)
         y = randint(1, mdl_x - 1)
@@ -55,6 +55,7 @@ def obj_iter(tmp, num):
         y = mdl_y
 
     square = x * y
+    insert_object(m_id, x, y, square)
 
 def l_s_iter():
     is_cr1 = execute_read_query(connection, "SELECT isCritical FROM level_sensor WHERE levelSensorId = 1;")[0][0]
@@ -125,11 +126,12 @@ def p_s_iter():
 while (True):
     print("Показания датчиков изображения форм (id датчика, всего, хорошо, плохо):")
     print(im_s_iter())
-
     print("Показания датчиков уровня сырья в баков (id датчика, критический уровень, критический уровень?, текущий уроыень):")
     print(l_s_iter())
     print("Показания фотоэлектрических датчиков детектирования (id датчика, объект задетектирован?, уровень заполненности формы):")
     print(p_s_iter())
+    print("Последние 5 объектов(id объекта, id модели, x, y, площадь):")
+    print(select_object())
     print()
     sleep(1)
     l_s_cr()

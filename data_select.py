@@ -34,7 +34,7 @@ def select_model():
 
 def select_object():
     try:
-        tmp = "SELECT * FROM object IN ORDER BY objectId DESC;"
+        tmp = "SELECT * FROM object ORDER BY objectId DESC LIMIT 5;"
         o = execute_read_query(connection, tmp)
     except:
         o = "error"
