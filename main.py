@@ -1,21 +1,22 @@
 from connect import *
 from data_select import *
 from data_push import *
+from vizualization import *
 from random import *
 from time import *
 
 def im_s_iter():
-    total1 = execute_read_query(connection, "SELECT total FROM image_sensor WHERE imageSensorId = 1;")[0][0]
-    total2 = execute_read_query(connection, "SELECT total FROM image_sensor WHERE imageSensorId = 2;")[0][0]
-    total3 = execute_read_query(connection, "SELECT total FROM image_sensor WHERE imageSensorId = 3;")[0][0]
+    total1 = execute_read_query(connection, "SELECT total FROM image_sensor WHERE imageSensorId = 1 ORDER BY imSNum DESC LIMIT 1;")[0][0]
+    total2 = execute_read_query(connection, "SELECT total FROM image_sensor WHERE imageSensorId = 2 ORDER BY imSNum DESC LIMIT 1;")[0][0]
+    total3 = execute_read_query(connection, "SELECT total FROM image_sensor WHERE imageSensorId = 3 ORDER BY imSNum DESC LIMIT 1;")[0][0]
 
-    good1 = execute_read_query(connection, "SELECT good FROM image_sensor WHERE imageSensorId = 1;")[0][0]
-    good2 = execute_read_query(connection, "SELECT good FROM image_sensor WHERE imageSensorId = 2;")[0][0]
-    good3 = execute_read_query(connection, "SELECT good FROM image_sensor WHERE imageSensorId = 3;")[0][0]
+    good1 = execute_read_query(connection, "SELECT good FROM image_sensor WHERE imageSensorId = 1 ORDER BY imSNum DESC LIMIT 1;")[0][0]
+    good2 = execute_read_query(connection, "SELECT good FROM image_sensor WHERE imageSensorId = 2 ORDER BY imSNum DESC LIMIT 1;")[0][0]
+    good3 = execute_read_query(connection, "SELECT good FROM image_sensor WHERE imageSensorId = 3 ORDER BY imSNum DESC LIMIT 1;")[0][0]
 
-    bad1 = execute_read_query(connection, "SELECT bad FROM image_sensor WHERE imageSensorId = 1;")[0][0]
-    bad2 = execute_read_query(connection, "SELECT bad FROM image_sensor WHERE imageSensorId = 2;")[0][0]
-    bad3 = execute_read_query(connection, "SELECT bad FROM image_sensor WHERE imageSensorId = 3;")[0][0]
+    bad1 = execute_read_query(connection, "SELECT bad FROM image_sensor WHERE imageSensorId = 1 ORDER BY imSNum DESC LIMIT 1;")[0][0]
+    bad2 = execute_read_query(connection, "SELECT bad FROM image_sensor WHERE imageSensorId = 2 ORDER BY imSNum DESC LIMIT 1;")[0][0]
+    bad3 = execute_read_query(connection, "SELECT bad FROM image_sensor WHERE imageSensorId = 3 ORDER BY imSNum DESC LIMIT 1;")[0][0]
 
     tmp1 = randint(0, 1)
     tmp2 = randint(0, 1)
@@ -57,9 +58,9 @@ def obj_iter(tmp, num):
     insert_object(m_id, x, y, square)
 
 def l_s_iter():
-    is_cr1 = execute_read_query(connection, "SELECT isCritical FROM level_sensor WHERE levelSensorId = 1 ORDER BY lSNum DESC LIMIT 3;")[0][0]
-    is_cr2 = execute_read_query(connection, "SELECT isCritical FROM level_sensor WHERE levelSensorId = 2 ORDER BY lSNum DESC LIMIT 3;")[0][0]
-    is_cr3 = execute_read_query(connection, "SELECT isCritical FROM level_sensor WHERE levelSensorId = 3 ORDER BY lSNum DESC LIMIT 3;")[0][0]
+    is_cr1 = execute_read_query(connection, "SELECT isCritical FROM level_sensor WHERE levelSensorId = 1 ORDER BY lSNum DESC LIMIT 1;")[0][0]
+    is_cr2 = execute_read_query(connection, "SELECT isCritical FROM level_sensor WHERE levelSensorId = 2 ORDER BY lSNum DESC LIMIT 1;")[0][0]
+    is_cr3 = execute_read_query(connection, "SELECT isCritical FROM level_sensor WHERE levelSensorId = 3 ORDER BY lSNum DESC LIMIT 1;")[0][0]
 
     massive = [0] * 3
     if is_cr1 != 1:
@@ -71,8 +72,8 @@ def l_s_iter():
     tmp = randint(0, 2)
     while massive[tmp] != 1:
         tmp = randint(0, 2)
-    cr_l = execute_read_query(connection, f"SELECT criticalLevel FROM level_sensor WHERE levelSensorId = {tmp + 1} ORDER BY lSNum DESC LIMIT 3;")[0][0]
-    lvl = execute_read_query(connection, f"SELECT level FROM level_sensor WHERE levelSensorId = {tmp + 1} ORDER BY lSNum DESC LIMIT 3;")[0][0]
+    cr_l = execute_read_query(connection, f"SELECT criticalLevel FROM level_sensor WHERE levelSensorId = {tmp + 1} ORDER BY lSNum DESC LIMIT 1;")[0][0]
+    lvl = execute_read_query(connection, f"SELECT level FROM level_sensor WHERE levelSensorId = {tmp + 1} ORDER BY lSNum DESC LIMIT 1;")[0][0]
     lvl = lvl - 10
     insert_l_s(tmp + 1, cr_l, 0, lvl)
     if lvl <= cr_l:
@@ -81,21 +82,21 @@ def l_s_iter():
     return select_l_s()
 
 def l_s_cr():
-    is_cr1 = execute_read_query(connection, "SELECT isCritical FROM level_sensor WHERE levelSensorId = 1 ORDER BY lSNum DESC LIMIT 3;")[0][0]
-    is_cr2 = execute_read_query(connection, "SELECT isCritical FROM level_sensor WHERE levelSensorId = 2 ORDER BY lSNum DESC LIMIT 3;")[0][0]
-    is_cr3 = execute_read_query(connection, "SELECT isCritical FROM level_sensor WHERE levelSensorId = 3 ORDER BY lSNum DESC LIMIT 3;")[0][0]
+    is_cr1 = execute_read_query(connection, "SELECT isCritical FROM level_sensor WHERE levelSensorId = 1 ORDER BY lSNum DESC LIMIT 1;")[0][0]
+    is_cr2 = execute_read_query(connection, "SELECT isCritical FROM level_sensor WHERE levelSensorId = 2 ORDER BY lSNum DESC LIMIT 1;")[0][0]
+    is_cr3 = execute_read_query(connection, "SELECT isCritical FROM level_sensor WHERE levelSensorId = 3 ORDER BY lSNum DESC LIMIT 1;")[0][0]
 
     if is_cr1 == 1:
-        lvl = execute_read_query(connection, "SELECT level FROM level_sensor WHERE levelSensorId = 1 ORDER BY lSNum DESC LIMIT 3;")[0][0]
-        cr_l = execute_read_query(connection, "SELECT criticalLevel FROM level_sensor WHERE levelSensorId = 1 ORDER BY lSNum DESC LIMIT 3;")[0][0]
+        lvl = execute_read_query(connection, "SELECT level FROM level_sensor WHERE levelSensorId = 1 ORDER BY lSNum DESC LIMIT 1;")[0][0]
+        cr_l = execute_read_query(connection, "SELECT criticalLevel FROM level_sensor WHERE levelSensorId = 1 ORDER BY lSNum DESC LIMIT 1;")[0][0]
         insert_l_s(1, cr_l, 0, lvl + 30)
     if is_cr2 == 1:
-        lvl = execute_read_query(connection, "SELECT level FROM level_sensor WHERE levelSensorId = 2 ORDER BY lSNum DESC LIMIT 3;")[0][0]
-        cr_l = execute_read_query(connection, "SELECT criticalLevel FROM level_sensor WHERE levelSensorId = 2 ORDER BY lSNum DESC LIMIT 3")[0][0]
+        lvl = execute_read_query(connection, "SELECT level FROM level_sensor WHERE levelSensorId = 2 ORDER BY lSNum DESC LIMIT 1;")[0][0]
+        cr_l = execute_read_query(connection, "SELECT criticalLevel FROM level_sensor WHERE levelSensorId = 2 ORDER BY lSNum DESC LIMIT 1")[0][0]
         insert_l_s(2, cr_l, 0, lvl + 30)
     if is_cr3 == 1:
-        lvl = execute_read_query(connection, "SELECT level FROM level_sensor WHERE levelSensorId = 3 ORDER BY lSNum DESC LIMIT 3;")[0][0]
-        cr_l = execute_read_query(connection, "SELECT criticalLevel FROM level_sensor WHERE levelSensorId = 3 ORDER BY lSNum DESC LIMIT 3;")[0][0]
+        lvl = execute_read_query(connection, "SELECT level FROM level_sensor WHERE levelSensorId = 3 ORDER BY lSNum DESC LIMIT 1;")[0][0]
+        cr_l = execute_read_query(connection, "SELECT criticalLevel FROM level_sensor WHERE levelSensorId = 3 ORDER BY lSNum DESC LIMIT 1;")[0][0]
         insert_l_s(3, cr_l, 0, lvl + 30)
 
 def p_s_iter():
@@ -123,14 +124,19 @@ def p_s_iter():
     return select_p_s()
 
 while (True):
-    print("10 последних показаний датчиков изображения форм (id датчика, всего, хорошо, плохо):")
-    print(im_s_iter())
-    print("10 последних показаний датчиков уровня сырья в баках (id датчика, критический уровень, критический уровень?, текущий уровень):")
-    print(l_s_iter())
-    print("10 последних показаний фотоэлектрических датчиков детектирования (id записи,id датчика, объект задетектирован?, уровень заполненности формы, дата):")
-    print(p_s_iter())
-    print("Последние 10 объектов(id объекта, id модели, x, y, площадь):")
-    print(select_object())
-    print()
-    sleep(1)
+    #print("10 последних показаний датчиков изображения форм (id датчика, всего, хорошо, плохо):")
+    im_s_iter()
+    #print("10 последних показаний датчиков уровня сырья в баках (id датчика, критический уровень, критический уровень?, текущий уровень):")
+    l_s_iter()
+    #print("10 последних показаний фотоэлектрических датчиков детектирования (id записи,id датчика, объект задетектирован?, уровень заполненности формы, дата):")
+    p_s_iter()
+    #print("Последние 10 объектов(id объекта, id модели, x, y, площадь):")
+    select_object()
     l_s_cr()
+    print(persent_success_ims(1))
+    print(persent_success_ims(2))
+    print(persent_success_ims(3))
+    print(level_ls(1))
+    print(level_ls(2))
+    print(level_ls(3))
+    sleep(1)
